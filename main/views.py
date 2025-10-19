@@ -1,17 +1,32 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # from django.http import HttpResponse
-
+from .models import Question, Choice
 
 def index(request):
-    question_list = [
-        "なまこ",
-        "なめこ",
-        "なるこ",
-    ]
+    all_question = Question.objects.order_by("-id")
+
     context = {
-        "question_list": question_list,
-        "is_polled": True,
-        "polled_msg": "貝柱",
-        "not_polled_msg": "だれえ？",
-    } 
+        "all_question": all_question,
+    }
     return render(request, "main/index.html",context)
+def detail(request,question_id):
+    question = Question.objects.get(pk=question_id)
+    context = {
+        "question":question
+    }
+
+    return render(request, "main/detail.html",context)
+
+def vote(request, question_id):
+    question = Question.objects.get(pk=question_id)
+    try:
+        selected_choice = question.choices.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        return render(request, 'main/detail.html', {
+            'question': question,
+            'error_message': "こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!こんにちは世界!!!!!",
+        })
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+        return redirect('detail', question.id)

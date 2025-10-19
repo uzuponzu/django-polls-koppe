@@ -1,22 +1,23 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>投票アプリ</title>
+    <title>投豹アプリ</title>
+    <link rel="stylesheet" href="{% static "main/css/index.css" %}">
 </head>
 <body>
-    <h1>いぇすかはいでこたえなさい</h1>
-    <h2>はむ</h2>
-    {% for question in question_list %}
-        <p>Q. {{ question }}</p>
-    {% endfor %}
-    
-    {% if is_polled  %}
-        <p>{{ polled_msg }}</p>
+    <div class="index-container">
+    {% if all_question %}
+   <ul class="question-list">
+        {% for question in all_question %}
+            <li class="question-item"><a class="question-link" href="{% url 'detail' question.id %}">{{ question.question_text}}</a></li>
+        {% endfor %}
     {% else %}
-        <p>{{ not_polled_msg }}</p>
-    {% endif %}
-
+        <p class=".no-questions">任せますね</p>
+        {% endif %}
+   </ul>
+   </div>
 </body>
 </html>

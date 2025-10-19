@@ -1,0 +1,59 @@
+body {
+    background-color: #a8c97f;
+}
+
+.vote-form {
+    width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: antiquewhite;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.vote-question {
+    text-decoration: none;
+    color: rgb(88, 82, 75);
+    font-size: 50px;
+}
+
+.error-message {
+    color: rgb(231, 76, 60);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.choice-option {
+    margin: 10px 0;
+}
+
+.choice-option input[type="radio"] {
+    margin-right: 8px;
+    accent-color: rgb(154, 145, 134);
+}
+
+.vote-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: rgb(190, 206, 197);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.back-link {
+    display: block;
+    width: 800px;
+    margin: 20px auto;
+    text-align: center;
+    padding: 10px;
+    background-color: rgb(210, 215, 217);
+    color: rgb(44, 62, 80);
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
